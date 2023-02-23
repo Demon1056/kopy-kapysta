@@ -1,13 +1,15 @@
-import { ExpensesReportForm } from 'components/ExpensesReportForm/ExpensesReportForm';
-import { IncomeReportForm } from 'components/IncomeReportForm/IncomeReportForm';
+// import { ExpensesReportForm } from 'components/ExpensesReportForm/ExpensesReportForm';
+// import { IncomeReportForm } from 'components/IncomeReportForm/IncomeReportForm';
 import { ReportsTopWrapper } from 'components/ReportsTopWrapper/ReportsTopWrapper';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTransactionsReport } from 'redux/transaction/transactionOperations';
 import { selectAllTransactionsReport } from 'redux/transaction/transactionSelectors';
+import { Outlet } from 'react-router-dom';
+// import { ReportIconBlock } from '../components/ReportIconBlock/ReportIconBlock';
 
-export default function Report() {
+export default function Report({ children }) {
   const report = useSelector(selectAllTransactionsReport);
   console.log('🚀 ~ file: Report.jsx:9 ~ Report ~ report:', typeof report);
   const dispatch = useDispatch();
@@ -35,11 +37,13 @@ export default function Report() {
       </Helmet>
       <>This is Report page</>
       <ReportsTopWrapper />
-      <ExpensesReportForm />
-      <IncomeReportForm />
+      <Outlet />
+      {/* <ExpensesReportForm />
+      <IncomeReportForm /> */}
       <button onClick={() => setMonth(month - 1)}>prev</button>
       <br />
       <button onClick={() => setMonth(month + 1)}>next</button>
+      {/* <ReportIconBlock /> */}
     </div>
   );
 }

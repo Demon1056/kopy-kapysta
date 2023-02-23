@@ -12,6 +12,7 @@ import { refreshUser } from 'redux/auth/authOperations';
 import { useAuth } from 'hooks/useAuth';
 import { Loader } from './Loader/Loader';
 
+
 const RegisterPage = lazy(() => import('../pages/Register'));
 const LoginPage = lazy(() => import('../pages/Login'));
 const HomePage = lazy(() => import('../pages/Home'));
@@ -49,11 +50,13 @@ export const App = () => {
       ) : (
         <Routes>
           <Route path="/" element={<Layout />}>
-            {/* <Redirect exact from="/" to="/login" /> */}
             <Route
-              path="/login"
-              element={
-                <RestrictedRoute redirectTo="/home" component={<LoginPage />} />
+              // path="/login"
+              index element={
+                <RestrictedRoute
+                  redirectTo="/report"
+                  component={<LoginPage />}
+                />
               }
             />
             <Route
@@ -68,23 +71,23 @@ export const App = () => {
             <Route
               path="/home"
               element={
-                <PrivateRoute redirectTo="/login" component={<HomePage />} />
+                <PrivateRoute redirectTo="/" component={<HomePage />} />
               }
             >
               <Route
                 path="expenses"
                 element={
                   <PrivateRoute
-                    redirectTo="/login"
+                    redirectTo="/"
                     component={<ExpensesForm />}
                   />
                 }
               />
               <Route
-                path="income"
-                element={
+                // path="income"
+                index element={
                   <PrivateRoute
-                    redirectTo="/login"
+                    redirectTo="/"
                     component={<IncomeForm />}
                   />
                 }
@@ -93,14 +96,14 @@ export const App = () => {
             <Route
               path="/report"
               element={
-                <PrivateRoute redirectTo="/login" component={<ReportPage />} />
+                <PrivateRoute redirectTo="/" component={<ReportPage />} />
               }
             >
               <Route
-                path="expenses"
-                element={
+                // path="expenses"
+                index element={
                   <PrivateRoute
-                    redirectTo="/login"
+                    redirectTo="/"
                     component={<ExpensesReportForm />}
                   />
                 }
@@ -109,7 +112,7 @@ export const App = () => {
                 path="income"
                 element={
                   <PrivateRoute
-                    redirectTo="/login"
+                    redirectTo="/"
                     component={<IncomeReportForm />}
                   />
                 }

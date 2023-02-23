@@ -6,6 +6,7 @@ import { Formik, ErrorMessage } from 'formik';
 import useScreenResizing from '../../hooks/useScreenResizing';
 import { CustomSelect } from '../CustomSelect/CustomSelect';
 import { DataBox } from '../DataBox/DataBox';
+
 import {
   InputField,
   FormBox,
@@ -52,7 +53,9 @@ const schema = Yup.object().shape({
     .min(3)
     .max(16)
     .required('Enter product description'),
-  sum: Yup.number('Invalid sum, only numbers').required('Enter sum'),
+  sum: Yup.number('Invalid sum, only numbers')
+    .positive('Only positive value')
+    .required('Enter sum'),
 });
 
 const FormError = ({ name }) => {
@@ -64,7 +67,7 @@ const FormError = ({ name }) => {
   );
 };
 
-export const ExpensesForm = () => {
+const ExpensesForm = () => {
   const viewPort = useScreenResizing();
   const dispatch = useDispatch();
 
@@ -137,9 +140,9 @@ export const ExpensesForm = () => {
                         id="sum"
                         name="sum"
                         pattern="^(([0-9]*)|(([0-9]*)\.([0-9]*)))$"
-                        title="Вalance must be whole numbers (or decimal numbers)"
+                        title="Sum must be whole numbers (or decimal numbers)"
                         placeholder={
-                          viewPort.width > 767 ? '00.00' : '00.00 UAH'
+                          viewPort.width > 767 ? '00.00' : '00.00UAH'
                         }
                         onChange={handleChange}
                         value={values.sum}
@@ -183,3 +186,5 @@ export const ExpensesForm = () => {
     </>
   );
 };
+
+export default ExpensesForm;
